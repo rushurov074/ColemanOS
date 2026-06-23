@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html>
-    <body style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; background-color: black;">
-        <h1 style="color: blue; margin: 4px; padding: 4px; text-align: center;">Welcome to ColemanOS!</h1>
+    <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-image: url(./images-5.jpeg); background-size: cover;">
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 28px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; box-sizing: border-box; backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); background-color: rgba(30, 30, 30, 0.45); border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: #fff; font-size: 13px; z-index: 1000;">
+        <p style="margin: 0; font-weight: 600; cursor: default;">colemanOS</p> 
+        <img src="./buffalo-bills-flag.gif" style="margin: 0px; width: 50px; height: 23px; object-fit: cover; border-radius: 15px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"/>
+        <p id="timeElement" style="margin: 0; font-weight: 500; cursor: default;">70°F Tue Jun 23  6:07 PM</p>
+    </div>
+    <div style="border: solid; border: 4mm ridge rgba(0, 131, 253, 0.6); width: fit-content; border-radius: 40px; padding-bottom: 20px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: black;">
+        <h1 style="color: blue; margin: 4px; padding: 4px; text-align: center;">Welcome to colemanOS!</h1>
         <h2 style="color: red; text-align: center;">An Web Operating System based on the Buffalo Bills Wide Reciever: Keon Coleman</h2>
-        <h5 style="color: white; text-decoration: solid; margin-bottom: 0px;">Who even is this guy??</h5>
-        <p style="text-align: left; margin-top: 5px; color: white;">Keon Coleman is an American professional football wide receiver for the Buffalo Bills of the National Football League. <br> He played college football for the Michigan State Spartans and Florida State Seminoles and was selected by the Bills in the second round of the 2024 NFL draft. <br> (This came STRAIGHT his Wikipedia page obviously)</p>
-        <img style="width: 140px; height: 180px; object-fit: cover; border-radius: 16px;" src="./IMG_3323.jpg" />
-        <caption><em style="color: white;"><br>Keon Coleman</em></caption>
+        <h5 style="color: white; margin: 4px; text-decoration: solid; margin-bottom: 0px;">Who even is this guy??</h5>
+        <p style="text-align: left; margin: 4px; margin-top: 5px; color: white;">Keon Coleman is an American professional football wide receiver for the Buffalo Bills of the National Football League. <br> He played college football for the Michigan State Spartans and Florida State Seminoles and was selected by the Bills in the second round of the 2024 NFL draft. <br> (This came STRAIGHT from his Wikipedia page obviously)</p>
+        
+        <div style="display: inline-block; text-align: center; margin-left: 10px; margin-top: 10px;">
+            <img style="width: 140px; height: 180px; object-fit: cover; border-radius: 16px; display: block; margin-bottom: 5px;" src="./keon coleman catching.jpeg" />
+            <p style="margin: 0px;"><em style="color: white;">Keon Coleman</em></p>
+        </div>
 
+    </div>
+    <script>
+    function updatetime() {
+        document.querySelector('#timeElement').innerHTML = new Date().toLocaleString();
+    }
+    setInterval(updatetime, 1000);
+
+    </script>
     </body>
 </html>
