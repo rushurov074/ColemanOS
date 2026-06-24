@@ -58,9 +58,9 @@ body {
     border-radius: 16px;
     position: absolute;
     backdrop-filter: blur(4px);
-    background-color: rgba(0, 0, 0, 0.8); /* Added a dark background to make your text readable! */
-    width: 500px; /* Optional: gives your window a nice standard size */
-    top: calc(50% - 250px); /* Centers it roughly */
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 500px; 
+    top: calc(50% - 250px);
     left: calc(50% - 250px);
 }
 
@@ -68,13 +68,13 @@ body {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center; /* Centers the "About colemanOS" text */
+    justify-content: center;
     cursor: grab;
     margin-top: 8px;
     margin-bottom: 8px;
     color: white;
     font-weight: bold;
-    position: relative; /* Helps position the close button */
+    position: relative;
 }
 
 .closebutton {
@@ -91,17 +91,16 @@ body {
     padding: 0;
 }
 
-/* Typography Inside Window */
 .welcome-title {
-    color: #4a90e2; /* Adjusted the blue to look better on dark backgrounds */
+    color: #4a90e2;
     margin: 4px;
     padding: 4px;
     text-align: center;
 }
 
 .welcome-subtitle {
-    color: #ff5f56; /* Adjusted the red */
-    text-align: center;
+    color: #ff5f56; /* ooooooh red */
+    text-align: center; /* my bad just testing out comments */ 
     font-size: 1.2rem;
     margin: 4px;
 }
@@ -122,7 +121,6 @@ body {
     line-height: 1.4;
 }
 
-/* Image Container */
 .image-container {
     display: flex;
     flex-direction: column;
