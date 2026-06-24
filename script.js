@@ -1,83 +1,185 @@
 function updatetime() {
     document.querySelector('#timeElement').innerHTML = new Date().toLocaleString();
 }
-
 setInterval(updatetime, 1000);
 
-var welcomeScreen = document.querySelector("#welcome")
+var welcomeScreen = document.querySelector("#welcome");
+var welcomeScreenOpen = document.querySelector("#welcomeopen");
+
+var colemanotesScreen = document.querySelector("#Colemanotes");
+var desktopAppIcon = document.querySelector("#desktopApp");
+
+var biggestIndex = 100;
+
+function handleWindowTap(element) {
+  biggestIndex++;
+  element.style.zIndex = biggestIndex;
+}
+
+function addWindowTapHandling(element) {
+  element.addEventListener("mousedown", function() {
+    handleWindowTap(element);
+  });
+}
 
 function closeWindow(element) {
-  element.style.display = "none"
+  element.style.display = "none";
 }
 
 function openWindow(element) {
-  element.style.display = "block"
+  element.style.display = "block";
+  handleWindowTap(element); 
 }
 
-var welcomeScreenClose = document.querySelector("#welcomeclose")
+function initializeWindow(windowId) {
+  var windowElement = document.querySelector("#" + windowId);
+  var lowerCaseId = windowId.toLowerCase(); 
+  var headerElement = document.querySelector("#" + lowerCaseId + "header");
+  var closeButton = document.querySelector("#" + lowerCaseId + "close");
 
-var welcomeScreenOpen = document.querySelector("#welcomeopen")
+  addWindowTapHandling(windowElement);
+  dragElement(windowElement, headerElement);
 
-welcomeScreenClose.addEventListener("click", function() {
-  closeWindow(welcomeScreen);
-});
+  if (closeButton) {
+    closeButton.addEventListener("click", function() {
+      closeWindow(windowElement);
+    });
+  }
+}
+
+var selectedIcon = undefined;
+
+function selectIcon(element) {
+  element.classList.add("selected");
+  selectedIcon = element;
+} 
+
+function deselectIcon(element) {
+  element.classList.remove("selected");
+  selectedIcon = undefined; 
+} 
+
+function handleIconTap(element) {
+  if (element.classList.contains("selected")) {
+    deselectIcon(element);
+  } else {
+    selectIcon(element);
+  }
+}
 
 welcomeScreenOpen.addEventListener("click", function() {
   openWindow(welcomeScreen);
 });
 
+desktopAppIcon.addEventListener("click", function() {
+  openWindow(colemanotesScreen);
+});
 
-// Make the DIV element draggable:
-dragElement(document.getElementById("welcome"));
+function dragElement(windowElement, headerElement) {
+  if (!windowElement) return; 
 
-// Step 1: Define a function called `dragElement` that makes an HTML element draggable.
-function dragElement(element) {
-  // Step 2: Set up variables to keep track of the element's position.
   var initialX = 0;
   var initialY = 0;
   var currentX = 0;
   var currentY = 0;
 
-  // Step 3: Check if there is a special header element associated with the draggable element.
-  if (document.getElementById(element.id + "header")) {
-    // Step 4: If present, assign the `dragMouseDown` function to the header's `onmousedown` event.
-    // This allows you to drag the window around by its header.
-    document.getElementById(element.id + "header").onmousedown = startDragging;
+  if (headerElement) {
+    headerElement.onmousedown = startDragging;
   } else {
-    // Step 5: If not present, assign the function directly to the draggable element's `onmousedown` event.
-    // This allows you to drag the window by holding down anywhere on the window.
-    element.onmousedown = startDragging;
+    windowElement.onmousedown = startDragging;
   }
 
-  // Step 6: Define the `startDragging` function to capture the initial mouse position and set up event listeners.
   function startDragging(e) {
     e = e || window.event;
     e.preventDefault();
-    // Step 7: Get the mouse cursor position at startup.
     initialX = e.clientX;
     initialY = e.clientY;
-    // Step 8: Set up event listeners for mouse movement (`elementDrag`) and mouse button release (`closeDragElement`).
     document.onmouseup = stopDragging;
-    document.onmousemove = dragElement;
+    document.onmousemove = moveElement; 
   }
 
-  // Step 9: Define the `elementDrag` function to calculate the new position of the element based on mouse movement.
-  function dragElement(e) {
+  function moveElement(e) { 
     e = e || window.event;
     e.preventDefault();
-    // Step 10: Calculate the new cursor position.
     currentX = initialX - e.clientX;
     currentY = initialY - e.clientY;
     initialX = e.clientX;
     initialY = e.clientY;
-    // Step 11: Update the element's new position by modifying its `top` and `left` CSS properties.
-    element.style.top = (element.offsetTop - currentY) + "px";
-    element.style.left = (element.offsetLeft - currentX) + "px";
+    windowElement.style.top = (windowElement.offsetTop - currentY) + "px";
+    windowElement.style.left = (windowElement.offsetLeft - currentX) + "px";
   }
 
-  // Step 12: Define the `stopDragging` function to stop tracking mouse movement by removing the event listeners.
   function stopDragging() {
     document.onmouseup = null;
     document.onmousemove = null;
   }
+}
+
+initializeWindow("welcome");
+initializeWindow("Colemanotes");
+
+// --- 8. Colemanotes App Logic ---
+
+// The Database
+var myNotes = [
+  {
+    title: "Draft Day Excitement",
+    date: "04/25/2024",
+    content: "<h2>Welcome to Buffalo!</h2><p>Keon Coleman was selected by the Bills in the second round. His size and athleticism are exactly what the offense needed.</p>"
+  },
+  {
+    title: "Macy's Coat Legend",
+    date: "04/27/2024",
+    content: "<h2>The Yellow Jacket</h2><p>Already a legend for showing up to his introductory press conference talking about buying his winter coat on sale at Macy's. A true Buffalo fit.</p>"
+  },
+  {
+    title: "Rookie Season Thoughts",
+    date: "06/24/2026",
+    content: "<h2>Looking Forward</h2><p>It will be great to see how his route running translates to the pro level after a few seasons in the system.</p>"
+  }
+];
+
+// Grab the HTML elements we built earlier
+var sidebar = document.querySelector("#sidebar");
+var noteDisplay = document.querySelector("#note-display");
+
+// The Engine: Injecting content to the right screen
+function setNotesContent(index) {
+  // Find the exact note in the array using its index number (0, 1, or 2)
+  var selectedNote = myNotes[index]; 
+  
+  // Overwrite the right column's HTML with the note's content
+  noteDisplay.innerHTML = selectedNote.content;
+}
+
+// The Factory: Building the sidebar buttons programmatically
+function addToSideBar(index) {
+  var note = myNotes[index];
+  
+  // 1. Create a brand new, empty HTML div
+  var newDiv = document.createElement("div");
+  
+  // 2. Add some styling so it looks like a clickable button
+  newDiv.style.padding = "10px";
+  newDiv.style.borderBottom = "1px solid #ccc";
+  newDiv.style.cursor = "pointer";
+  
+  // 3. Fill the div using backticks (`) which allow injecting variables via ${}
+  newDiv.innerHTML = `
+    <p style="margin: 0px; font-weight: bold;">${note.title}</p>
+    <p style="margin: 0px; font-size: 12px; color: gray;">${note.date}</p>
+  `;
+  
+  // 4. Attach the click listener so it knows to run the display function
+  newDiv.addEventListener("click", function() {
+    setNotesContent(index);
+  });
+  
+  // 5. Append (attach) this finished div into the actual sidebar on the page
+  sidebar.appendChild(newDiv);
+}
+
+// The Loop: Run the factory once for every item in the myNotes database
+for (let i = 0; i < myNotes.length; i++) {
+  addToSideBar(i);
 }

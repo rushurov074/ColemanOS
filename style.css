@@ -138,9 +138,17 @@ body {
     border-radius: 16px;
     display: block;
     margin-bottom: 5px;
+    cursor: pointer;
 }
 
 .coleman-caption {
     margin: 0px;
     color: white;
+}
+
+.app {
+    width: 64px; 
+    height: 64px; 
+    border-radius: 100px; 
+    object-fit: cover;
 }
