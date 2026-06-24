@@ -5,6 +5,8 @@ This WebOS features a notes/news article app with 3 articles about Keon Coleman.
 
 It also features a live Weather app for the weather in Buffalo, NY. It uses the API from Open-Meteo.
 
+Finally, it has a cool quote generator with most of his popular quotes!
+
 DISCLAIMER: AI WAS USED!
 I used Gemini to explain the guide when it got confusing, explain errors in my code, and explain how to use an API in JavaScript.
 
