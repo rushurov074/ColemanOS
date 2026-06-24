@@ -1,14 +1,10 @@
+// --- 1. Clock Logic ---
 function updatetime() {
     document.querySelector('#timeElement').innerHTML = new Date().toLocaleString();
 }
 setInterval(updatetime, 1000);
 
-var welcomeScreen = document.querySelector("#welcome");
-var welcomeScreenOpen = document.querySelector("#welcomeopen");
-
-var colemanotesScreen = document.querySelector("#Colemanotes");
-var desktopAppIcon = document.querySelector("#desktopApp");
-
+// --- 2. Window Z-Index Management ---
 var biggestIndex = 100;
 
 function handleWindowTap(element) {
@@ -31,6 +27,7 @@ function openWindow(element) {
   handleWindowTap(element); 
 }
 
+// --- 3. Master Initialization Function ---
 function initializeWindow(windowId) {
   var windowElement = document.querySelector("#" + windowId);
   var lowerCaseId = windowId.toLowerCase(); 
@@ -47,6 +44,7 @@ function initializeWindow(windowId) {
   }
 }
 
+// --- 4. Desktop Icon Logic ---
 var selectedIcon = undefined;
 
 function selectIcon(element) {
@@ -67,21 +65,34 @@ function handleIconTap(element) {
   }
 }
 
+// --- 5. Open Window Event Listeners ---
+var welcomeScreen = document.querySelector("#welcome");
+var welcomeScreenOpen = document.querySelector("#welcomeopen");
+var colemanotesScreen = document.querySelector("#Colemanotes");
+var weatherAppScreen = document.querySelector("#weatherApp");
+var colemanotesIcon = document.querySelector("#colemanotesIcon");
+var weatherIcon = document.querySelector("#weatherIcon");
+
 welcomeScreenOpen.addEventListener("click", function() {
   openWindow(welcomeScreen);
 });
 
-desktopAppIcon.addEventListener("click", function() {
+colemanotesIcon.addEventListener("click", function() {
   openWindow(colemanotesScreen);
 });
 
+// Click listener for the weather icon opens the window AND triggers the API fetch
+weatherIcon.addEventListener("click", function() {
+  openWindow(weatherAppScreen);
+  fetchBuffaloWeather();
+});
+
+
+// --- 6. Draggable Logic ---
 function dragElement(windowElement, headerElement) {
   if (!windowElement) return; 
 
-  var initialX = 0;
-  var initialY = 0;
-  var currentX = 0;
-  var currentY = 0;
+  var initialX = 0, initialY = 0, currentX = 0, currentY = 0;
 
   if (headerElement) {
     headerElement.onmousedown = startDragging;
@@ -115,12 +126,12 @@ function dragElement(windowElement, headerElement) {
   }
 }
 
+// Initialize all three windows
 initializeWindow("welcome");
 initializeWindow("Colemanotes");
+initializeWindow("weatherApp");
 
-// --- 8. Colemanotes App Logic ---
-
-// The Database
+// --- 7. Colemanotes Database & Logic ---
 var myNotes = [
   {
     title: "Draft Day Excitement",
@@ -133,53 +144,65 @@ var myNotes = [
     content: "<h2>The Yellow Jacket</h2><p>Already a legend for showing up to his introductory press conference talking about buying his winter coat on sale at Macy's. A true Buffalo fit.</p>"
   },
   {
-    title: "Rookie Season Thoughts",
+    title: "It’s OK to be optimistic about Keon Coleman in 2026",
     date: "06/24/2026",
-    content: "<h2>Looking Forward</h2><p>It will be great to see how his route running translates to the pro level after a few seasons in the system.</p>"
+    content: "<h2>Why Keon Coleman is a Player to Look Out For</h2><p>I get it, this is all very hypothetical and Coleman will need to step up off the field as well. But at the time of year when we sit and wait for training camp to get started, I am going to choose to be optimistic about Keon Coleman. For the sake of all Bills fans, lets hope that I am right.</p>"
   }
 ];
 
-// Grab the HTML elements we built earlier
 var sidebar = document.querySelector("#sidebar");
 var noteDisplay = document.querySelector("#note-display");
 
-// The Engine: Injecting content to the right screen
 function setNotesContent(index) {
-  // Find the exact note in the array using its index number (0, 1, or 2)
   var selectedNote = myNotes[index]; 
-  
-  // Overwrite the right column's HTML with the note's content
   noteDisplay.innerHTML = selectedNote.content;
 }
 
-// The Factory: Building the sidebar buttons programmatically
 function addToSideBar(index) {
   var note = myNotes[index];
-  
-  // 1. Create a brand new, empty HTML div
   var newDiv = document.createElement("div");
-  
-  // 2. Add some styling so it looks like a clickable button
   newDiv.style.padding = "10px";
   newDiv.style.borderBottom = "1px solid #ccc";
   newDiv.style.cursor = "pointer";
   
-  // 3. Fill the div using backticks (`) which allow injecting variables via ${}
   newDiv.innerHTML = `
     <p style="margin: 0px; font-weight: bold;">${note.title}</p>
     <p style="margin: 0px; font-size: 12px; color: gray;">${note.date}</p>
   `;
   
-  // 4. Attach the click listener so it knows to run the display function
   newDiv.addEventListener("click", function() {
     setNotesContent(index);
   });
   
-  // 5. Append (attach) this finished div into the actual sidebar on the page
   sidebar.appendChild(newDiv);
 }
 
-// The Loop: Run the factory once for every item in the myNotes database
 for (let i = 0; i < myNotes.length; i++) {
   addToSideBar(i);
 }
+
+// --- 8. API Logic: Buffalo Live Weather ---
+var buffaloTempDisplay = document.querySelector("#buffalo-temp");
+var refreshButton = document.querySelector("#refresh-weather");
+
+function fetchBuffaloWeather() {
+    // Show a loading state while we wait for the internet
+    buffaloTempDisplay.innerHTML = "Loading...";
+    
+    // The exact API endpoint for Buffalo, requested in Fahrenheit
+    var url = "https://api.open-meteo.com/v1/forecast?latitude=42.89&longitude=-78.88&current_weather=true&temperature_unit=fahrenheit";
+    
+    // Asynchronous Fetch Request
+    fetch(url)
+        .then(function(response) {
+            return response.json(); // Parse the data
+        })
+        .then(function(data) {
+            // Drill down into the JSON object to extract the exact temperature value
+            var currentTemp = data.current_weather.temperature;
+            buffaloTempDisplay.innerHTML = currentTemp + "°F";
+        });
+}
+
+// Allow the user to manually refresh the weather
+refreshButton.addEventListener("click", fetchBuffaloWeather);

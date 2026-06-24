@@ -11,57 +11,67 @@
         <p class="top-bar-time" id="timeElement">70°F Tue Jun 23 6:07 PM</p>
     </div>
 
-    <div id="desktopApp" style="padding-top: 64px; padding-left: 16px;">
-        <div style="text-align: center; padding: 16px;">
-      <img src="./appimage.jpeg" class="app">
-      <p style="margin: 0px; color: #fff; ">Colemanotes</p>
+    <div style="display: flex; flex-direction: column; padding-top: 64px; padding-left: 16px; width: 120px; gap: 16px;">
+        
+        <div id="colemanotesIcon" style="text-align: center; cursor: pointer;">
+            <img src="./appimage.jpeg" class="app">
+            <p style="margin: 0px; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Colemanotes</p>
         </div>
+
+        <div id="weatherIcon" style="text-align: center; cursor: pointer;">
+            <img src="./bills.jpeg" class="app">
+            <p style="margin: 0px; color: #fff; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);">Mafia Weather</p>
+        </div>
+        
     </div>
 
-        <div class="window" id="Colemanotes" style="display: none;">
-        
+    <div class="window" id="Colemanotes" style="display: none;">
         <div class="windowheader" id="colemanotesheader">
             <button class="closebutton" id="colemanotesclose"></button>
             Colemanotes
         </div>
-        
         <div style="display: flex; height: 400px;"> 
-            
             <div id="sidebar" style="width: 30%; background-color: #f0f0f0; padding: 10px; border-right: 2px solid #ccc; overflow-y: scroll;">
                 <p style="font-weight: bold; text-align: center;">My Notes</p>
-                </div>
-
+            </div>
             <div id="note-display" style="width: 70%; padding: 20px; background-color: #ffffff; overflow-y: scroll;">
                 <h1 class="welcome-title">Colemanotes</h1>
                 <h2 class="welcome-subtitle">THE spot to discuss and ponder the Buffalo Bills WR, Keon Coleman</h2>
                 <p>Select a note from the sidebar to read it</p>
             </div>
-
         </div>
+    </div>
 
+    <div class="window" id="weatherApp" style="display: none; top: 150px; left: 200px; width: 300px;">
+        <div class="windowheader" id="weatherappheader">
+            <button class="closebutton" id="weatherappclose"></button>
+            Buffalo Weather
+        </div>
+        <div style="background-color: #fff; padding: 20px; text-align: center; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; box-sizing: border-box;">
+            <h1 style="margin: 0px; color: #00338D;">Buffalo, NY</h1>
+            <p style="margin-top: 5px; color: #C60C30; font-weight: bold;">Bills Mafia Territory</p>
+            <h2 id="buffalo-temp" style="font-size: 48px; margin: 20px 0;">--°F</h2>
+            <button id="refresh-weather" style="padding: 10px; background-color: #00338D; color: white; border: none; border-radius: 5px; cursor: pointer;">Refresh Weather</button>
+        </div>
     </div>
 
     <div class="window" id="welcome">
-        
         <div class="windowheader" id="welcomeheader">
             <button class="closebutton" id="welcomeclose"></button>
             About colemanOS
         </div>
-        
         <h1 class="welcome-title">Welcome to colemanOS!</h1>
         <h2 class="welcome-subtitle">A Web Operating System based on the Buffalo Bills Wide Receiver: Keon Coleman</h2>
         <h5 class="welcome-heading">Who even is this guy??</h5>
         <p class="welcome-text">
-            Keon Coleman is an American professional football wide receiver for the Buffalo Bills of the National Football League. <br> 
-            He played college football for the Michigan State Spartans and Florida State Seminoles and was selected by the Bills in the second round of the 2024 NFL draft. <br> 
+            Keon Coleman is an American professional football wide receiver for the Buffalo Bills of the National Football League.<br> 
+            He played college football for the Michigan State Spartans and Florida State Seminoles and was selected by the Bills in the second round of the 2024 NFL draft.<br> 
             (This came STRAIGHT from his Wikipedia page obviously)
         </p>
-        
         <div class="image-container">
             <img class="coleman-image" src="./keon coleman catching.jpeg" />
             <p class="coleman-caption"><em>Keon Coleman</em></p>
         </div>
-
     </div>
 
     <script src="script.js"></script>
