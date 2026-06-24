@@ -1,0 +1,146 @@
+/* Background */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-image: url(./images-5.jpeg);
+    background-size: cover;
+    margin: 0;
+}
+
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    box-sizing: border-box;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    background-color: rgba(30, 30, 30, 0.45);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 13px;
+    z-index: 1000;
+}
+
+.top-bar-title {
+    margin: 0;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.top-bar-flag {
+    margin: 0px;
+    width: 50px;
+    height: 23px;
+    object-fit: cover;
+    border-radius: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.top-bar-time {
+    margin: 0;
+    font-weight: 500;
+    cursor: default;
+}
+
+/* Window */
+.window {
+    border: solid 1px rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    position: absolute;
+    backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0.8); /* Added a dark background to make your text readable! */
+    width: 500px; /* Optional: gives your window a nice standard size */
+    top: calc(50% - 250px); /* Centers it roughly */
+    left: calc(50% - 250px);
+}
+
+.windowheader {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centers the "About colemanOS" text */
+    cursor: grab;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    color: white;
+    font-weight: bold;
+    position: relative; /* Helps position the close button */
+}
+
+.closebutton {
+    width: 12px;
+    height: 12px;
+    background-color: #ff5f56;
+    border: 1px solid #e0443e;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0;
+}
+
+/* Typography Inside Window */
+.welcome-title {
+    color: #4a90e2; /* Adjusted the blue to look better on dark backgrounds */
+    margin: 4px;
+    padding: 4px;
+    text-align: center;
+}
+
+.welcome-subtitle {
+    color: #ff5f56; /* Adjusted the red */
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 4px;
+}
+
+.welcome-heading {
+    color: white;
+    margin: 4px;
+    text-align: center;
+    text-decoration: solid;
+    margin-bottom: 0px;
+    font-size: 1rem;
+}
+
+.welcome-text {
+    text-align: center;
+    margin: 10px 20px;
+    color: white;
+    line-height: 1.4;
+}
+
+/* Image Container */
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.coleman-image {
+    width: 140px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 16px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.coleman-caption {
+    margin: 0px;
+    color: white;
+}
